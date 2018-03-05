@@ -1,7 +1,7 @@
 {% set name = "pysoundfile" %}
 {% set pypi_name = "SoundFile" %}
-{% set version = "0.9.0.post1" %}
-{% set sha256 = "e01b53f6ba6dce389f388c819b43466b8708e85e9d832a8a3a1ff95af7c60731" %}
+{% set version = "0.10.1" %}
+{% set sha256 = "8e841dd7ccf1b2dc064c19271df95ee8b53868e8edb7a0df2873e0144010154d" %}
 
 package:
   name: {{ name|lower }}
