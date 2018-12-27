@@ -1,7 +1,7 @@
 {% set name = "pysoundfile" %}
 {% set pypi_name = "SoundFile" %}
-{% set version = "0.10.1" %}
-{% set sha256 = "8e841dd7ccf1b2dc064c19271df95ee8b53868e8edb7a0df2873e0144010154d" %}
+{% set version = "0.10.2" %}
+{% set sha256 = "637f6218c867b8cae80f6989634a0813b416b3e6132480d056e6e5a89a921571" %}
 
 package:
   name: {{ name|lower }}
@@ -19,6 +19,8 @@ build:
 
 requirements:
   build:
+    - {{ compiler('c') }}
+  host:
     - python
     - setuptools
     - cffi
@@ -27,7 +29,6 @@ requirements:
     - cffi
     - numpy
     - libsndfile
-
 
 test:
   imports:
