@@ -5,11 +5,6 @@ jobs:
   timeoutInMinutes: 240
   strategy:
     maxParallel: 8
-    matrix:
-      linux_c_compilergcc:
-        CONFIG: linux_c_compilergcc
-      linux_c_compilertoolchain_c:
-        CONFIG: linux_c_compilertoolchain_c
   steps:
   - script: |
       sudo pip install --upgrade pip
