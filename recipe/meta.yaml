@@ -20,6 +20,7 @@ build:
 
 requirements:
   host:
+    - pip
     - python
     - setuptools
     - cffi
