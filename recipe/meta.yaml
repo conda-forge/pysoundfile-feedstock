@@ -13,11 +13,12 @@ source:
 
 build:
   number: 0
-  script: python -m pip install . --no-deps -vv
+  noarch: python
+  script:
+    - export PYSOUNDFILE_PLATFORM=win32
+    - python -m pip install . --no-deps -vv
 
 requirements:
-  build:
-    - "{{ compiler('c') }}"
   host:
     - python
     - setuptools
