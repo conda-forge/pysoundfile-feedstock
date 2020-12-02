@@ -1,7 +1,6 @@
 {% set name = "pysoundfile" %}
 {% set pypi_name = "SoundFile" %}
-{% set version = "0.10.2" %}
-{% set sha256 = "637f6218c867b8cae80f6989634a0813b416b3e6132480d056e6e5a89a921571" %}
+{% set version = "0.10.3.post1" %}
 
 package:
   name: {{ name|lower }}
@@ -10,14 +9,15 @@ package:
 source:
   fn: {{ pypi_name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/{{ pypi_name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 490cff42650733d1832728b937fe99fa1802896f5ef4d61bcf78cf7ebecb107b
 
 build:
-  noarch: python
-  number: 1001
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  number: 0
+  script: python -m pip install . --no-deps -vv
 
 requirements:
+  build:
+    - "{{ compiler('c') }}"
   host:
     - python
     - setuptools
@@ -43,3 +43,4 @@ about:
 extra:
   recipe-maintainers:
     - scopatz
+    - wolfv
