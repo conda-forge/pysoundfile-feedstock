@@ -34,7 +34,7 @@ test:
 
 about:
   home: http://pysoundfile.readthedocs.io
-  license: BSD 3-Clause
+  license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
   summary: 'SoundFile is an audio library based on libsndfile, CFFI, and NumPy'
