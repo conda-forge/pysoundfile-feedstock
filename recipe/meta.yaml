@@ -1,7 +1,6 @@
 {% set name = "pysoundfile" %}
 {% set pypi_name = "SoundFile" %}
-{% set version = "0.10.2" %}
-{% set sha256 = "637f6218c867b8cae80f6989634a0813b416b3e6132480d056e6e5a89a921571" %}
+{% set version = "0.10.3.post1" %}
 
 package:
   name: {{ name|lower }}
@@ -10,15 +9,23 @@ package:
 source:
   fn: {{ pypi_name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/{{ pypi_name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 490cff42650733d1832728b937fe99fa1802896f5ef4d61bcf78cf7ebecb107b
 
 build:
+  number: 0
   noarch: python
-  number: 1001
-  script: python setup.py install --single-version-externally-managed --record record.txt
+  script:
+    # We are currently building a noarch package, but pysoundfile contains a
+    # install-time check for the OS and injects the sf_wchar_open function
+    # conditionally. If this variable is not set, opening files on Windows doesn't work
+    # Fix coming hopefully with https://github.com/bastibe/python-soundfile/pull/288
+    # Original issue on conda-forge: https://github.com/conda-forge/libsndfile-feedstock/issues/14
+    - export PYSOUNDFILE_PLATFORM=win32
+    - python -m pip install . --no-deps -vv
 
 requirements:
   host:
+    - pip
     - python
     - setuptools
     - cffi
@@ -34,7 +41,7 @@ test:
 
 about:
   home: http://pysoundfile.readthedocs.io
-  license: BSD 3-Clause
+  license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
   summary: 'SoundFile is an audio library based on libsndfile, CFFI, and NumPy'
@@ -43,3 +50,4 @@ about:
 extra:
   recipe-maintainers:
     - scopatz
+    - wolfv
