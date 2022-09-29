@@ -1,5 +1,5 @@
 {% set name = "pysoundfile" %}
-{% set pypi_name = "SoundFile" %}
+{% set pypi_name = "soundfile" %}
 {% set version = "0.11.0" %}
 
 package:
@@ -26,11 +26,11 @@ build:
 requirements:
   host:
     - pip
-    - python
+    - python >=3.6
     - setuptools
     - cffi
   run:
-    - python
+    - python >=3.6
     - cffi
     - numpy
     - libsndfile
