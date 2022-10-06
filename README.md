@@ -145,6 +145,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@bmcfee](https://github.com/bmcfee/)
 * [@scopatz](https://github.com/scopatz/)
 * [@wolfv](https://github.com/wolfv/)
 
