@@ -12,7 +12,7 @@ source:
   sha256: 931738a1c93e8684c2d3e1d514ac63440ce827ec783ea0a2d3e4730e3dc58c18
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script:
     # We are currently building a noarch package, but pysoundfile contains a
@@ -33,7 +33,7 @@ requirements:
     - python >=3.6
     - cffi
     - numpy
-    - libsndfile
+    - libsndfile >=1.2
 
 test:
   imports:
