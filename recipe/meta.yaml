@@ -1,6 +1,6 @@
 {% set name = "pysoundfile" %}
 {% set pypi_name = "soundfile" %}
-{% set version = "0.11.0" %}
+{% set version = "0.12.0" %}
 
 package:
   name: {{ name|lower }}
@@ -9,7 +9,7 @@ package:
 source:
   fn: {{ pypi_name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/{{ pypi_name }}-{{ version }}.tar.gz
-  sha256: 931738a1c93e8684c2d3e1d514ac63440ce827ec783ea0a2d3e4730e3dc58c18
+  sha256: e50c42733ff5396e49a6a689722fa362387b2c403273bcc195994bf4a8e2df3f
 
 build:
   number: 0
@@ -33,7 +33,7 @@ requirements:
     - python >=3.6
     - cffi
     - numpy
-    - libsndfile
+    - libsndfile >=1.2
 
 test:
   imports:
