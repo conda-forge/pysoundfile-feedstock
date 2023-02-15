@@ -1,6 +1,6 @@
 {% set name = "pysoundfile" %}
 {% set pypi_name = "soundfile" %}
-{% set version = "0.12.0" %}
+{% set version = "0.12.1" %}
 
 package:
   name: {{ name|lower }}
@@ -9,7 +9,7 @@ package:
 source:
   fn: {{ pypi_name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/{{ pypi_name }}-{{ version }}.tar.gz
-  sha256: e50c42733ff5396e49a6a689722fa362387b2c403273bcc195994bf4a8e2df3f
+  sha256: e8e1017b2cf1dda767aef19d2fd9ee5ebe07e050d430f77a0a7c66ba08b8cdae
 
 build:
   number: 0
