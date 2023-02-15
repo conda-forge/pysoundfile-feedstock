@@ -1,6 +1,6 @@
 {% set name = "pysoundfile" %}
 {% set pypi_name = "soundfile" %}
-{% set version = "0.11.0" %}
+{% set version = "0.12.1" %}
 
 package:
   name: {{ name|lower }}
@@ -9,7 +9,7 @@ package:
 source:
   fn: {{ pypi_name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/{{ pypi_name }}-{{ version }}.tar.gz
-  sha256: 931738a1c93e8684c2d3e1d514ac63440ce827ec783ea0a2d3e4730e3dc58c18
+  sha256: e8e1017b2cf1dda767aef19d2fd9ee5ebe07e050d430f77a0a7c66ba08b8cdae
 
 build:
   number: 0
@@ -44,7 +44,7 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
-  summary: 'SoundFile is an audio library based on libsndfile, CFFI, and NumPy'
+  summary: SoundFile is an audio library based on libsndfile, CFFI, and NumPy
   dev_url: https://github.com/bastibe/SoundFile
 
 extra:
