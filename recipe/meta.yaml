@@ -38,6 +38,10 @@ requirements:
 test:
   imports:
     - soundfile
+  commands:
+    # Verify that soundfile is linking the correct libsndfile object
+     python -c "import soundfile; print(soundfile._libname)"
+
 
 about:
   home: http://pysoundfile.readthedocs.io
