@@ -12,7 +12,7 @@ source:
   sha256: e8e1017b2cf1dda767aef19d2fd9ee5ebe07e050d430f77a0a7c66ba08b8cdae
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script:
     # We are currently building a noarch package, but pysoundfile contains a
@@ -44,12 +44,12 @@ test:
 
 
 about:
-  home: http://pysoundfile.readthedocs.io
+  home: https://python-soundfile.readthedocs.io/
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
   summary: 'SoundFile is an audio library based on libsndfile, CFFI, and NumPy'
-  dev_url: https://github.com/bastibe/SoundFile
+  dev_url: https://github.com/bastibe/python-soundfile
 
 extra:
   recipe-maintainers:
