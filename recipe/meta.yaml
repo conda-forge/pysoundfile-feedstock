@@ -8,39 +8,45 @@ package:
 
 source:
   fn: {{ pypi_name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/{{ pypi_name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/{{ pypi_name }}-{{ version }}.tar.gz
   sha256: e8e1017b2cf1dda767aef19d2fd9ee5ebe07e050d430f77a0a7c66ba08b8cdae
+  patches:
+    # Don't use the wheel-related cmdclass patching, it messes up the wheel names
+    # when cross-compiling
+    - cmdclass.patch
 
 build:
-  number: 1
-  noarch: python
-  script:
-    # We are currently building a noarch package, but pysoundfile contains a
-    # install-time check for the OS and injects the sf_wchar_open function
-    # conditionally. If this variable is not set, opening files on Windows doesn't work
-    # Fix coming hopefully with https://github.com/bastibe/python-soundfile/pull/288
-    # Original issue on conda-forge: https://github.com/conda-forge/libsndfile-feedstock/issues/14
-    - export PYSOUNDFILE_PLATFORM=win32
-    - python -m pip install . --no-deps -vv
+  number: 2
 
 requirements:
+  build:
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - cffi                                   # [build_platform != target_platform]
   host:
     - pip
-    - python >=3.6
+    - python
     - setuptools
     - cffi
   run:
-    - python >=3.6
+    - python
     - cffi
     - numpy
     - libsndfile >=1.2
 
 test:
+  requires:
+    - pip
+    - python
   imports:
     - soundfile
   commands:
     # Verify that soundfile is linking the correct libsndfile object
-     python -c "import soundfile; print(soundfile._libname)"
+    - python -c "import soundfile; print(soundfile._libname)"
+    # Verify that we can actually access the library
+    - python -c "import soundfile as sf, pprint; fmts = sf.available_formats(); pprint.pprint(fmts); assert 'WAV' in fmts"
+    - pip show -vvv soundfile
+    - pip check -vvv
 
 
 about:
