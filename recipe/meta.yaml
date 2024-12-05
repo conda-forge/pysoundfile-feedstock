@@ -12,24 +12,30 @@ source:
   sha256: e8e1017b2cf1dda767aef19d2fd9ee5ebe07e050d430f77a0a7c66ba08b8cdae
   patches:
     # Don't use the wheel-related cmdclass patching, it messes up the wheel names
-    # when cross-compiling
+    # when cross-compiling, and this should be a `-any` package (even though it contains
+    # one Windows-only CFFI function, it's only used on Windows)
     - cmdclass.patch
 
 build:
   number: 2
+  noarch: python
+  script:
+    # We are currently building a noarch package, but pysoundfile contains a
+    # install-time check for the OS and injects the sf_wchar_open function
+    # conditionally. If this variable is not set, opening files on Windows doesn't work
+    # Fix coming hopefully with https://github.com/bastibe/python-soundfile/pull/288
+    # Original issue on conda-forge: https://github.com/conda-forge/libsndfile-feedstock/issues/14
+    - export PYSOUNDFILE_PLATFORM=win32
+    - python -m pip install . --no-deps -vv
 
 requirements:
-  build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - cffi                                   # [build_platform != target_platform]
   host:
     - pip
-    - python
+    - python {{ python_min }}
     - setuptools
     - cffi
   run:
-    - python
+    - python >={{ python_min }}
     - cffi
     - numpy
     - libsndfile >=1.2
@@ -37,7 +43,7 @@ requirements:
 test:
   requires:
     - pip
-    - python
+    - python {{ python_min }}
   imports:
     - soundfile
   commands:
