@@ -11,9 +11,9 @@ source:
   url: https://pypi.org/packages/source/{{ pypi_name[0] }}/{{ pypi_name }}/{{ pypi_name }}-{{ version }}.tar.gz
   sha256: e8e1017b2cf1dda767aef19d2fd9ee5ebe07e050d430f77a0a7c66ba08b8cdae
   patches:
-    # Don't use the wheel-related cmdclass patching, it messes up the wheel names
-    # when cross-compiling, and this should be a `-any` package (even though it contains
-    # one Windows-only CFFI function, it's only used on Windows)
+    # Don't use the wheel-related cmdclass patching, we need to pretend the platform
+    # is windows to add an appropriate CFFI function. However, doing so makes the
+    # wheel name and metadata indicate it's Windows-only, which is not true.
     - cmdclass.patch
 
 build:
