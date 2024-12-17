@@ -17,7 +17,7 @@ source:
     - cmdclass.patch
 
 build:
-  number: 2
+  number: 3
   noarch: python
   script:
     # We are currently building a noarch package, but pysoundfile contains a
