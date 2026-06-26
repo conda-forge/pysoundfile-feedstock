@@ -1,10 +1,9 @@
 context:
-  name: pysoundfile
   pypi_name: soundfile
   version: "0.14.0"
 
-package:
-  name: ${{ name|lower }}
+recipe:
+  name: soundfile
   version: ${{ version }}
 
 source:
@@ -18,49 +17,71 @@ source:
 
 build:
   number: 0
-  noarch: python
-  script:
-    # We are currently building a noarch package, but pysoundfile contains an
-    # install-time check for the OS and injects the sf_wchar_open function
-    # conditionally. If this variable is not set, opening files on Windows doesn't work.
-    # Original issue on conda-forge: https://github.com/conda-forge/libsndfile-feedstock/issues/14
-    env:
-      PYSOUNDFILE_PLATFORM: win32
-    content:
-      - python -m pip install . --no-deps -vv
 
-requirements:
-  host:
-    - pip
-    - python ${{ python_min }}.*
-    - setuptools
-    - cffi
-  run:
-    - python >=${{ python_min }}
-    - cffi >=1.0
-    - numpy
-    - typing_extensions
-    - libsndfile >=1.2
-
-tests:
-  - python:
-      imports:
-        - soundfile
-      pip_check: true
-      python_version: ${{ python_min }}.*
-  - script:
-      # Verify that soundfile is linking the correct libsndfile object
-      - python -c "import soundfile; print(soundfile._libname)"
-      # Verify that we can actually access the library
-      - python -c "import soundfile as sf, pprint; fmts = sf.available_formats(); pprint.pprint(fmts); assert 'WAV' in fmts"
-      # Functional round-trip test: write and read back a WAV file
-      - python run_test.py
+outputs:
+  - package:
+      name: soundfile
+    build:
+      noarch: python
+      script:
+        # We are currently building a noarch package, but soundfile contains an
+        # install-time check for the OS and injects the sf_wchar_open function
+        # conditionally. If this variable is not set, opening files on Windows doesn't work.
+        # Original issue on conda-forge: https://github.com/conda-forge/libsndfile-feedstock/issues/14
+        env:
+          PYSOUNDFILE_PLATFORM: win32
+        content:
+          - python -m pip install . --no-deps -vv
     requirements:
-      run:
+      host:
+        - pip
         - python ${{ python_min }}.*
-    files:
-      recipe:
-        - run_test.py
+        - setuptools
+        - cffi
+      run:
+        - python >=${{ python_min }}
+        - cffi >=1.0
+        - numpy
+        - typing_extensions
+        - libsndfile >=1.2
+    tests:
+      - python:
+          imports:
+            - soundfile
+          pip_check: true
+          python_version: ${{ python_min }}.*
+      - script:
+          # Verify that soundfile is linking the correct libsndfile object
+          - python -c "import soundfile; print(soundfile._libname)"
+          # Verify that we can actually access the library
+          - python -c "import soundfile as sf, pprint; fmts = sf.available_formats(); pprint.pprint(fmts); assert 'WAV' in fmts"
+          # Functional round-trip test: write and read back a WAV file
+          - python run_test.py
+        requirements:
+          run:
+            - python ${{ python_min }}.*
+        files:
+          recipe:
+            - run_test.py
+
+  # Transition metapackage: the project was renamed from `pysoundfile` to
+  # `soundfile`. This keeps the old name installable while pointing users at
+  # the renamed package. See https://github.com/conda-forge/pysoundfile-feedstock/issues/23
+  - package:
+      name: pysoundfile
+    build:
+      noarch: python
+    requirements:
+      host:
+        - python ${{ python_min }}.*
+      run:
+        - python >=${{ python_min }}
+        - ${{ pin_subpackage('soundfile', exact=True) }}
+    tests:
+      - python:
+          imports:
+            - soundfile
+          python_version: ${{ python_min }}.*
 
 about:
   homepage: https://python-soundfile.readthedocs.io/

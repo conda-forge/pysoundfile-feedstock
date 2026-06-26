@@ -31,6 +31,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-pysoundfile-green.svg)](https://anaconda.org/conda-forge/pysoundfile) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pysoundfile.svg)](https://anaconda.org/conda-forge/pysoundfile) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/pysoundfile.svg)](https://anaconda.org/conda-forge/pysoundfile) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/pysoundfile.svg)](https://anaconda.org/conda-forge/pysoundfile) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-soundfile-green.svg)](https://anaconda.org/conda-forge/soundfile) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/soundfile.svg)](https://anaconda.org/conda-forge/soundfile) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/soundfile.svg)](https://anaconda.org/conda-forge/soundfile) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/soundfile.svg)](https://anaconda.org/conda-forge/soundfile) |
 
 Installing pysoundfile
 ======================
@@ -42,16 +43,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `pysoundfile` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `pysoundfile, soundfile` can be installed with `conda`:
 
 ```
-conda install pysoundfile
+conda install pysoundfile soundfile
 ```
 
 or with `mamba`:
 
 ```
-mamba install pysoundfile
+mamba install pysoundfile soundfile
 ```
 
 It is possible to list all of the versions of `pysoundfile` available on your platform with `conda`:
